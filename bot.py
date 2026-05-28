@@ -3,7 +3,7 @@ import os
 import httpx
 
 TOKEN = "8975271983:AAExvEKDjm8mhI7A2BmYpsGIhA7ZZ-rb7j4"
-CHANNEL_URL = "https://t.me/alextoto"
+CHANNEL_URL = "https://t.me/alextoto7"
 API = f"https://api.telegram.org/bot{TOKEN}"
 
 async def get_updates(offset=None):
