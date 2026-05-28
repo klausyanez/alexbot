@@ -2,8 +2,8 @@ import os
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-TOKEN = os.environ.get("8975271983:AAExvEKDjm8mhI7A2BmYpsGIhA7ZZ-rb7j4")
-CHANNEL_URL = "https://t.me/alextoto7"
+TOKEN = "8975271983:AAExvEKDjm8mhI7A2BmYpsGIhA7ZZ-rb7j4"
+CHANNEL_URL = "https://t.me/alextoto"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [[InlineKeyboardButton("🔥 Join my channel", url=CHANNEL_URL)]]
