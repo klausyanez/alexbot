@@ -1,10 +1,9 @@
-import asyncio
+import os
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-import os
 
-TOKEN = os.environ.get("TOKEN")
-CHANNEL_URL = "https://t.me/alextoto"
+TOKEN = os.environ.get("8975271983:AAExvEKDjm8mhI7A2BmYpsGIhA7ZZ-rb7j4")
+CHANNEL_URL = "https://t.me/alextoto7"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [[InlineKeyboardButton("🔥 Join my channel", url=CHANNEL_URL)]]
@@ -13,10 +12,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=InlineKeyboardMarkup(keyboard)
     )
 
-async def main():
+def main():
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
-    await app.run_polling()
+    app.run_polling(stop_signals=None)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
