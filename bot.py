@@ -1,10 +1,17 @@
 import asyncio
-import os
 import httpx
 
 TOKEN = "8975271983:AAExvEKDjm8mhI7A2BmYpsGIhA7ZZ-rb7j4"
 CHANNEL_URL = "https://t.me/alextoto7"
+GIF_URL = "https://i.imgur.com/kBqJ8p3.gif"
 API = f"https://api.telegram.org/bot{TOKEN}"
+
+async def send_animation(chat_id, gif_url, caption, keyboard=None):
+    data = {"chat_id": chat_id, "animation": gif_url, "caption": caption}
+    if keyboard:
+        data["reply_markup"] = keyboard
+    async with httpx.AsyncClient() as client:
+        await client.post(f"{API}/sendAnimation", json=data)
 
 async def get_updates(offset=None):
     params = {"timeout": 30}
@@ -13,13 +20,6 @@ async def get_updates(offset=None):
     async with httpx.AsyncClient(timeout=40) as client:
         r = await client.get(f"{API}/getUpdates", params=params)
         return r.json()
-
-async def send_message(chat_id, text, keyboard=None):
-    data = {"chat_id": chat_id, "text": text}
-    if keyboard:
-        data["reply_markup"] = keyboard
-    async with httpx.AsyncClient() as client:
-        await client.post(f"{API}/sendMessage", json=data)
 
 async def main():
     print("Bot started!")
@@ -35,12 +35,16 @@ async def main():
                 if text == "/start" and chat_id:
                     keyboard = {
                         "inline_keyboard": [[
-                            {"text": "🔥 Join my channel", "url": CHANNEL_URL}
+                            {"text": "🔥 Join my free channel", "url": CHANNEL_URL}
                         ]]
                     }
-                    await send_message(
+                    await send_animation(
                         chat_id,
-                        "Hey! I'm Alex 🔥\n\nExclusive personalized content just for you.\n\nReady? 👇",
+                        GIF_URL,
+                        "Hey 👋 I'm Alex — Latin model from Colombia 🇨🇴\n\n"
+                        "I share exclusive content on my free channel.\n"
+                        "Hot photos, videos and more 🔥\n\n"
+                        "Join now and see what's waiting for you 👇",
                         keyboard
                     )
         except Exception as e:
