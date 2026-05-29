@@ -3,10 +3,11 @@ import httpx
 
 TOKEN = "8975271983:AAExvEKDjm8mhI7A2BmYpsGIhA7ZZ-rb7j4"
 CHANNEL_URL = "https://t.me/alextoto7"
+GIF_URL = "https://res.cloudinary.com/dneyhcyqn/video/upload/v1780095068/download_fg96bg.mp4"
 API = f"https://api.telegram.org/bot{TOKEN}"
 
-async def send_animation(chat_id, gif_id, caption, keyboard=None):
-    data = {"chat_id": chat_id, "animation": gif_id, "caption": caption}
+async def send_animation(chat_id, gif_url, caption, keyboard=None):
+    data = {"chat_id": chat_id, "animation": gif_url, "caption": caption}
     if keyboard:
         data["reply_markup"] = keyboard
     async with httpx.AsyncClient() as client:
@@ -31,15 +32,6 @@ async def main():
                 msg = update.get("message", {})
                 text = msg.get("text", "")
                 chat_id = msg.get("chat", {}).get("id")
-
-                # Log any animation/document received
-                if "animation" in msg:
-                    file_id = msg["animation"]["file_id"]
-                    print(f"ANIMATION FILE_ID: {file_id}")
-                if "document" in msg:
-                    file_id = msg["document"]["file_id"]
-                    print(f"DOCUMENT FILE_ID: {file_id}")
-
                 if text == "/start" and chat_id:
                     keyboard = {
                         "inline_keyboard": [[
@@ -48,7 +40,7 @@ async def main():
                     }
                     await send_animation(
                         chat_id,
-                        "https://i.imgur.com/kBqJ8p3.gif",
+                        GIF_URL,
                         "Hey 👋 I'm Alex — Latin model from Colombia 🇨🇴\n\n"
                         "I share exclusive content on my free channel.\n"
                         "Hot photos, videos and more 🔥\n\n"
